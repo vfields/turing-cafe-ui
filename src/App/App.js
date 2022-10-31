@@ -35,6 +35,18 @@ class App extends Component {
       })
   }
 
+  deleteReservation = (id) => {
+    fetch(`http://localhost:3001/api/v1/reservations/${id}`, {
+      method: "DELETE"
+    })
+        .then(response => response.json())
+        .then(reservations => {
+          this.setState({
+            reservations: reservations
+          })
+        })
+  }
+
   render() {
     return (
       <div className="App">
@@ -47,6 +59,7 @@ class App extends Component {
         <div className='resy-container'>
           <ResContainer
             reservations={this.state.reservations}
+            deleteReservation={this.deleteReservation}
           />
         </div>
       </div>
