@@ -19,6 +19,28 @@ class Form extends React.Component {
     })
   }
 
+  handleClick = (event) => {
+    event.preventDefault();
+    const reservation = {
+      id: Date.now(),
+      name: this.state.name,
+      date: this.state.date,
+      time: this.state.time,
+      number: parseInt(this.state.number)
+    }
+    this.props.addReservation(reservation);
+    this.clearForm();
+  }
+
+  clearForm = () => {
+    this.setState({
+      name: '',
+      date: '',
+      time: '',
+      number: ''
+    })
+  }
+
   render() {
     return (
       <form>
@@ -50,7 +72,7 @@ class Form extends React.Component {
           placeholder="Number of guests"
           onChange={this.handleChange}
         />
-        <button>Make Reservation</button>
+        <button onClick={this.handleClick}>Make Reservation</button>
       </form>
     )
   }
