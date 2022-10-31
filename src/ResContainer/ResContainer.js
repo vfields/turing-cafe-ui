@@ -1,9 +1,13 @@
 import React from 'react';
-import './ResContainer.css'
+import './ResContainer.css';
+import ResCard from '../ResCard/ResCard.js';
 
 function ResContainer(props) {
   return (
-    <p>I am ResContainer</p>
+    <div>
+      <p>I am ResContainer</p>
+      <ResCard />
+    </div>
   )
 }
 
