@@ -1,12 +1,16 @@
 describe('Turing Cafe Dashboard', () => {
-  it('displays all expected elements on the DOM when user first vists', () => {
+
+  beforeEach(() => {
     cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
       statusCode: 200,
       ok: true,
       fixture: "reservations"
     })
+  })
+
+  it('displays all expected elements on the DOM when user first vists', () => {
     cy.visit('http://localhost:3000/')
-      .get('.app-title').should('exist').contains('Turing Cafe Reservations')
+    cy.get('.app-title').should('exist').contains('Turing Cafe Reservations')
     cy.get('[name="name"]').should('exist')
     cy.get('[name="date"]').should('exist')
     cy.get('[name="time"]').should('exist')
@@ -21,11 +25,6 @@ describe('Turing Cafe Dashboard', () => {
   });
 
   it('should reflect user inputed data in form inputs', () => {
-    cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
-      statusCode: 200,
-      ok: true,
-      fixture: "reservations"
-    })
     cy.visit('http://localhost:3000/')
     cy.get('[name="name"]').type('Tori').should('have.value', 'Tori')
     cy.get('[name="date"]').type('10/31').should('have.value', '10/31')
@@ -34,10 +33,10 @@ describe('Turing Cafe Dashboard', () => {
   });
 
   it('user should be able to add a new reservation that displays to the page', () => {
-    cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
+    cy.intercept('POST', 'http://localhost:3001/api/v1/reservations', {
       statusCode: 200,
       ok: true,
-      fixture: "reservations"
+      fixture: "toriReservation"
     })
     cy.visit('http://localhost:3000/')
     cy.get('[name="name"]').type('Tori')
