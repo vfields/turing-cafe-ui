@@ -2,7 +2,7 @@ import React from 'react';
 import './ResContainer.css';
 import ResCard from '../ResCard/ResCard.js';
 
-function ResContainer({reservations, deleteReservation}) {
+function ResContainer({reservations}) {
   const resList = reservations.map(reservation => {
     return (
       <ResCard
@@ -12,7 +12,6 @@ function ResContainer({reservations, deleteReservation}) {
         date={reservation.date}
         number={reservation.number}
         time={reservation.time}
-        deleteReservation={deleteReservation}
       />
     )
   })
