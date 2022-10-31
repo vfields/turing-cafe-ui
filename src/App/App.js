@@ -8,22 +8,35 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      reservations: []
+      reservations: [],
+      error: ''
     }
   }
 
   componentDidMount() {
     getReservations()
       .then(data => this.setState({
-        reservations: data
+        reservations: data,
+        error: ''
       }))
+      .catch(error => {
+        this.setState({
+          error: `Oops! That's a ${error.message}. Something went wrong, please try refreshing the page or coming back later!`
+        })
+      })
   }
 
   addReservation = (reservation) => {
     postReservation(reservation)
       .then(newReservation => {
         this.setState({
-          reservations: [...this.state.reservations, reservation]
+          reservations: [...this.state.reservations, reservation],
+          error: ''
+        })
+      })
+      .catch(error => {
+        this.setState({
+          error: `Oops! That's a ${error.message}. Something went wrong adding your reservation. Make sure you filled in all input fields!`
         })
       })
   }
@@ -37,6 +50,7 @@ class App extends Component {
             addReservation={this.addReservation}
           />
         </div>
+        {this.state.error && <h2 className="error">{this.state.error}</h2>}
         <div className='resy-container'>
           <ResContainer
             reservations={this.state.reservations}

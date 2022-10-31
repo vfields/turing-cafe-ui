@@ -17,3 +17,8 @@
   font-family: 'Pacifico', cursive;
   font-size: 50px;
 }
+
+.error {
+  background-color: teal;
+  color: white;
+}
