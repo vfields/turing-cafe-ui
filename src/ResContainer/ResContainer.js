@@ -17,7 +17,6 @@ function ResContainer({reservations}) {
   })
   return (
     <section>
-      <p>I am ResContainer</p>
       {resList}
     </section>
   )
