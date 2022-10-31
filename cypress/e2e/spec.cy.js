@@ -19,4 +19,17 @@ describe('Turing Cafe Dashboard', () => {
     cy.get('article').contains('Number of guests: 12')
     cy.get('article > button').should('exist')
   })
+
+  it('should reflect user inputed data in form inputs', () => {
+    cy.intercept('GET', 'http://localhost:3001/api/v1/reservations', {
+      statusCode: 200,
+      ok: true,
+      fixture: "reservations"
+    })
+    cy.visit('http://localhost:3000/')
+    cy.get('[name="name"]').type('Tori').should('have.value', 'Tori')
+    cy.get('[name="date"]').type('10/31').should('have.value', '10/31')
+    cy.get('[name="time"]').type('7:00').should('have.value', '7:00')
+    cy.get('[name="number"]').type('2').should('have.value', '2')
+  })
 })
