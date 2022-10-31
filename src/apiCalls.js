@@ -7,12 +7,12 @@ function checkError(response) {
   return response.json()
 }
 
-function getReservations() {
+export const getReservations = () => {
   return fetch(`${baseUrl}`)
     .then(response => checkError(response))
 }
 
-function postReservation(reservation) {
+export const postReservation = (reservation) => {
   return fetch(`${baseUrl}`, {
     method: 'POST',
     headers: {

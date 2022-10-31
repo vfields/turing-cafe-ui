@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Form from '../Form/Form.js'
 import ResContainer from '../ResContainer/ResContainer.js'
+import {getReservations, postReservation} from '../apiCalls.js'
 
 class App extends Component {
   constructor() {
@@ -12,22 +13,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:3001/api/v1/reservations')
-      .then(response => response.json())
+    getReservations()
       .then(data => this.setState({
         reservations: data
       }))
   }
 
   addReservation = (reservation) => {
-    fetch('http://localhost:3001/api/v1/reservations', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(reservation)
-    })
-      .then(response => response.json())
+    postReservation(reservation)
       .then(newReservation => {
         this.setState({
           reservations: [...this.state.reservations, reservation]
